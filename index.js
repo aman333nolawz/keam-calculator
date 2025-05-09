@@ -39,7 +39,8 @@ button.addEventListener("click", () => {
   let score = info[0];
   let deleted = 150 - info[1];
   let total_marks = 600 - deleted * 4;
+  let normalized = (score / total_marks) * 300;
 
   document.querySelector("#score").innerHTML =
-    `You got ${score} marks out of ${total_marks} (Marks of cancelled questions are avoided)`;
+    `You got ${score} marks out of ${total_marks} (Marks of cancelled questions are avoided)<br />Your normalized score: ${normalized.toFixed(2)}`;
 });
