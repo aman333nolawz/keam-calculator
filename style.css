@@ -13,31 +13,30 @@ h1 {
 }
 
 textarea {
-  display: block;
-  width: calc(100% - 20px);
-  padding: 15px;
+  width: calc(100% - 24px);
+  padding: 12px;
   margin-bottom: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  font-size: 16px;
-  line-height: 1.5;
   box-sizing: border-box;
-  resize: vertical; /* Allow vertical resizing */
-  min-height: 150px; /* Ensure a reasonable starting height */
+  font-size: 16px;
+  resize: vertical;
 }
 
-textarea::placeholder {
-  color: #aaa;
+select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  margin-right: 10px;
 }
 
 button {
-  display: block;
-  margin-top: 10px;
   background-color: #3498db;
   color: white;
-  padding: 12px 25px;
+  padding: 12px 20px;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s ease;
@@ -48,24 +47,45 @@ button:hover {
 }
 
 #score {
-  margin-top: 25px;
-  padding: 15px;
-  background-color: #e7f2fa;
-  border: 1px solid #d0e6ef;
+  margin-top: 30px;
+  background-color: #fff;
+  padding: 20px;
   border-radius: 8px;
-  font-size: 18px;
-  color: #34495e;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-x: auto; /* Enable horizontal scrolling */
 }
 
-select {
+table {
+  width: 100%; /* Initial width, will expand if content overflows */
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+thead th {
+  background-color: #34495e;
+  color: white;
+  padding: 12px;
+  text-align: left;
+  white-space: nowrap; /* Prevent header text from wrapping */
+}
+
+tbody td {
   padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 16px;
-  margin-left: 10px;
+  border-bottom: 1px solid #eee;
+  white-space: nowrap; /* Prevent cell content from wrapping */
 }
 
-label {
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+#score p {
   font-weight: bold;
-  margin-right: 5px;
+  font-size: 18px;
+  color: #27ae60;
+  white-space: nowrap; /* Prevent score paragraph from wrapping if it becomes wide */
 }

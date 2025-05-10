@@ -13,26 +13,27 @@ function calculateScore(data, key) {
   let match;
   const questions = [];
   let subjects = {
-    math: { mark: 0, qs: 0 },
-    phy: { mark: 0, qs: 0 },
-    chem: { mark: 0, qs: 0 },
+    math: { mark: 0, qs: 0, incorrect: 0, correct: 0, unattended: 0 },
+    phy: { mark: 0, qs: 0, incorrect: 0, correct: 0, unattended: 0 },
+    chem: { mark: 0, qs: 0, incorrect: 0, correct: 0, unattended: 0 },
   };
 
   while ((match = regex.exec(data)) !== null) {
     questions.push([match[1], match[2]]);
   }
 
-  let i = 0;
   for (const [question, myAnswer] of questions) {
-    i += 1;
     let subject = getSubject(question);
     subjects[subject].qs += 1;
 
     if (myAnswer === "N") {
+      subjects[subject].unattended += 1;
       continue;
     } else if (key[question] === myAnswer) {
+      subjects[subject].correct += 1;
       subjects[subject].mark += 4;
     } else {
+      subjects[subject].incorrect += 1;
       subjects[subject].mark -= 1;
     }
   }
@@ -42,7 +43,7 @@ function calculateScore(data, key) {
     subjects["phy"].mark * (45 / subjects["phy"].qs) +
     subjects["chem"].mark * (30 / subjects["chem"].qs);
 
-  return score;
+  return [score, subjects];
 }
 
 keys_option = Object.keys(keys);
@@ -58,9 +59,37 @@ let button = document.querySelector("button");
 button.addEventListener("click", () => {
   let data = document.querySelector("textarea").value;
   let key = keys[document.querySelector("#session").value];
-  let score = calculateScore(data, key);
+  let [score, subjects] = calculateScore(data, key);
   let normalized = score / 2;
 
-  document.querySelector("#score").innerHTML =
-    `You got ${score.toFixed(2)} marks out of 600<br />Your normalized score: ${normalized.toFixed(2)}/300`;
+  // Update table with subjects in the following format
+  // Subject, Correct, Incorrect, Unattended, Questions Cancelled
+  const table_body = document.querySelector("#score table tbody");
+  const total_qs = {
+    math: 75,
+    phy: 45,
+    chem: 30,
+  };
+  const subject_names = {
+    math: "Mathematics",
+    phy: "Physics",
+    chem: "Chemistry",
+  };
+
+  let table_body_contents = "";
+  for (const subject in subjects) {
+    table_body_contents += `<tr>
+      <td>${subject_names[subject]}</td>
+      <td>${subjects[subject].correct}</td>
+      <td>${subjects[subject].incorrect}</td>
+      <td>${subjects[subject].unattended}</td>
+      <td>${total_qs[subject] - subjects[subject].qs}</td>
+      <td>${subjects[subject].mark}</td>
+      </tr>`;
+  }
+
+  table_body.innerHTML = table_body_contents;
+
+  const p = document.querySelector("#score p");
+  p.innerHTML = `You got <strong>${score.toFixed(2)} marks out of 600</strong> <br /> i.e, <strong>${normalized.toFixed(2)} out of 300</strong>`;
 });

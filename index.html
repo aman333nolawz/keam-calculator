@@ -1,3 +1,4 @@
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -11,7 +12,22 @@
     Session:
     <select name="session" id="session"></select>
     <button type="button">Submit</button>
-    <div id="score"></div>
+    <div id="score">
+      <table>
+        <thead>
+          <tr>
+            <th>Subject</th>
+            <th>Correct</th>
+            <th>Incorrect</th>
+            <th>Unattended</th>
+            <th>Cancelled</th>
+            <th>Marks</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <p></p>
+    </div>
     <script src="key.js"></script>
     <script src="index.js"></script>
   </body>
