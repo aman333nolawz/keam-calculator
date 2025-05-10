@@ -89,3 +89,7 @@ tbody tr:nth-child(even) {
   color: #27ae60;
   white-space: nowrap; /* Prevent score paragraph from wrapping if it becomes wide */
 }
+
+#total {
+  font-weight: bold;
+}

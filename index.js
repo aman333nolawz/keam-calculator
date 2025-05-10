@@ -88,6 +88,15 @@ button.addEventListener("click", () => {
       </tr>`;
   }
 
+  table_body_contents += `<tr id="total">
+      <td>Total</td>
+      <td>${subjects["math"].correct + subjects["chem"].correct + subjects["phy"].correct}</td>
+      <td>${subjects["math"].incorrect + subjects["chem"].incorrect + subjects["phy"].incorrect}</td>
+      <td>${subjects["math"].unattended + subjects["chem"].unattended + subjects["phy"].unattended}</td>
+      <td>${150 - (subjects["math"].qs + subjects["chem"].qs + subjects["phy"].qs)}</td>
+      <td>${subjects["math"].mark + subjects["chem"].mark + subjects["phy"].mark}</td>
+      </tr>`;
+
   table_body.innerHTML = table_body_contents;
 
   const p = document.querySelector("#score p");
